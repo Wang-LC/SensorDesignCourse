@@ -1,0 +1,340 @@
+/COM,ANSYS RELEASE Release 19.2      BUILD 19.2      UP20180808       17:54:42
+/COM,ANSYS RELEASE Release 19.2      BUILD 19.2      UP20180808       17:59:51
+
+ *** WARNING ***                         CP =       8.797   TIME= 18:00:45
+ Smartsizing is inactive while mapped meshing key is set.                
+
+ *** WARNING ***                         CP =       8.969   TIME= 18:00:46
+ After NUMMRG,NODE, node 317 (and possibly others) is associated with    
+ more than one solid model entity.  Future commands which depend on the  
+ node to solid model connectivity (meshing, mesh clearing, solid         
+ boundary condition transfer, etc.) may not operate properly.            
+ NUMMRG,KP may correct this problem.                                     
+/COM,ANSYS RELEASE Release 19.2      BUILD 19.2      UP20180808       16:04:29
+
+ *** WARNING ***                         CP =       5.000   TIME= 16:05:19
+ ETC is not a recognized BEGIN command, abbreviation, or macro.  This    
+ command will be ignored.                                                
+/COM,ANSYS RELEASE Release 19.2      BUILD 19.2      UP20180808       10:07:32
+/COM,ANSYS RELEASE Release 19.2      BUILD 19.2      UP20180808       10:44:37
+
+ *** WARNING ***                         CP =       7.188   TIME= 10:45:07
+ No *DO trips needed, enter *ENDDO .                                     
+
+ *** ERROR ***                           CP =       7.359   TIME= 10:45:22
+ The program is unable to open file ECT_TEST_FLAME_MDL_RESULT\ECT_SCSPEED
+ _MSRMT (static).csv.  If the suggestions in the associated error        
+ messages immediately preceding and/or following this error message do   
+ not help resolve the file issue, please send the data leading to this   
+ operation to your technical support provider, along with the I/O error  
+ code of 29 and the system error code of 0, for help in determining the  
+ possible reasons as to why this file could not be opened.               
+
+ *** WARNING ***                         CP =       7.797   TIME= 10:45:37
+ Output file cannot be opened - file name=                               
+ ECT_TEST_FLAME_MDL_RESULT\ECT_SCSPEED_MSRMT (static).csv                
+  due to error number= 29                                                
+  Check file permissions, and also ensure that the file is not a         
+ directory.                                                              
+
+ *** WARNING ***                         CP =      12.438   TIME= 10:47:29
+ No *DO trips needed, enter *ENDDO .                                     
+
+ *** ERROR ***                           CP =      12.719   TIME= 10:47:44
+ The program is unable to open file ECT_TEST_FLAME_MDL_RESULT\ECT_SCSPEED
+ _MSRMT (static).csv.  If the suggestions in the associated error        
+ messages immediately preceding and/or following this error message do   
+ not help resolve the file issue, please send the data leading to this   
+ operation to your technical support provider, along with the I/O error  
+ code of 29 and the system error code of 0, for help in determining the  
+ possible reasons as to why this file could not be opened.               
+
+ *** WARNING ***                         CP =      12.984   TIME= 10:47:58
+ Output file cannot be opened - file name=                               
+ ECT_TEST_FLAME_MDL_RESULT\ECT_SCSPEED_MSRMT (static).csv                
+  due to error number= 29                                                
+  Check file permissions, and also ensure that the file is not a         
+ directory.                                                              
+
+ *** WARNING ***                         CP =      17.344   TIME= 10:50:25
+ No *DO trips needed, enter *ENDDO .                                     
+
+ *** ERROR ***                           CP =      17.562   TIME= 10:50:41
+ The program is unable to open file ECT_TEST_FLAME_MDL_RESULT\ECT_SCSPEED
+ _MSRMT (static).csv.  If the suggestions in the associated error        
+ messages immediately preceding and/or following this error message do   
+ not help resolve the file issue, please send the data leading to this   
+ operation to your technical support provider, along with the I/O error  
+ code of 29 and the system error code of 0, for help in determining the  
+ possible reasons as to why this file could not be opened.               
+
+ *** WARNING ***                         CP =      18.031   TIME= 10:50:58
+ Output file cannot be opened - file name=                               
+ ECT_TEST_FLAME_MDL_RESULT\ECT_SCSPEED_MSRMT (static).csv                
+  due to error number= 29                                                
+  Check file permissions, and also ensure that the file is not a         
+ directory.                                                              
+
+ *** WARNING ***                         CP =      22.250   TIME= 10:55:18
+ No *DO trips needed, enter *ENDDO .                                     
+
+ *** ERROR ***                           CP =      22.469   TIME= 10:55:33
+ The program is unable to open file APPEND\ECT_SCSPEED_MSRMT             
+ (static).csv.  If the suggestions in the associated error messages      
+ immediately preceding and/or following this error message do not help   
+ resolve the file issue, please send the data leading to this operation  
+ to your technical support provider, along with the I/O error code of    
+ 29 and the system error code of 0, for help in determining the          
+ possible reasons as to why this file could not be opened.               
+
+ *** WARNING ***                         CP =      23.078   TIME= 10:55:52
+ Output file cannot be opened - file name= APPEND\ECT_SCSPEED_MSRMT      
+ (static).csv                                                            
+  due to error number= 29                                                
+  Check file permissions, and also ensure that the file is not a         
+ directory.                                                              
+
+ *** WARNING ***                         CP =      27.156   TIME= 10:56:22
+ No *DO trips needed, enter *ENDDO .                                     
+
+ *** ERROR ***                           CP =      27.375   TIME= 10:56:22
+ Subscript range error.  Parameter DATA_RES_HALF is dimensioned as 1 x   
+ 1, but location 1 x 2 is being requested                                
+                                                                         
+
+ *** ERROR ***                           CP =      27.656   TIME= 10:56:32
+ No data exists for dimensioned parameter DATA_RES_HALF with subscripts  
+ 1 x 2.                                                                  
+
+ *** ERROR ***                           CP =      27.844   TIME= 10:56:36
+ Subscript range error.  Parameter DATA_RES_HALF is dimensioned as 1 x   
+ 1, but location 1 x 2 is being requested                                
+                                                                         
+
+ *** ERROR ***                           CP =      28.016   TIME= 10:56:37
+ No data exists for dimensioned parameter DATA_RES_HALF with subscripts  
+ 1 x 2.                                                                  
+
+ *** ERROR ***                           CP =      28.156   TIME= 10:56:38
+ The above error occurred processing field= DATA_RES_HALF(1,2)           
+  Line=                                                                  
+ *VWRITE,DATA_RES_HALF(1,1),DATA_RES_HALF(1,2),DATA_RES_HALF(1,3),DATA_R 
+ RES_HALF(1,4),DATA_RES_HALF(1,5),DATA_RES_HALF(1,6).                    
+
+ *** ERROR ***     SUPPRESSED MESSAGE    CP =      28.406   TIME= 10:56:40
+ Subscript range error.  Parameter DATA_RES_HALF is dimensioned as 1 x   
+ 1, but location 1 x 3 is being requested                                
+                                                                         
+
+ *** ERROR ***     SUPPRESSED MESSAGE    CP =      28.406   TIME= 10:56:40
+ No data exists for dimensioned parameter DATA_RES_HALF with subscripts  
+ 1 x 3.                                                                  
+
+ *** ERROR ***     SUPPRESSED MESSAGE    CP =      28.406   TIME= 10:56:40
+ Subscript range error.  Parameter DATA_RES_HALF is dimensioned as 1 x   
+ 1, but location 1 x 3 is being requested                                
+                                                                         
+
+ *** ERROR ***     SUPPRESSED MESSAGE    CP =      28.406   TIME= 10:56:40
+ No data exists for dimensioned parameter DATA_RES_HALF with subscripts  
+ 1 x 3.                                                                  
+
+ *** ERROR ***     SUPPRESSED MESSAGE    CP =      28.406   TIME= 10:56:40
+ The above error occurred processing field= DATA_RES_HALF(1,3)           
+  Line=                                                                  
+ *VWRITE,DATA_RES_HALF(1,1),DATA_RES_HALF(1,2),DATA_RES_HALF(1,3),DATA_R 
+ RES_HALF(1,4),DATA_RES_HALF(1,5),DATA_RES_HALF(1,6).                    
+
+ *** ERROR ***     SUPPRESSED MESSAGE    CP =      28.406   TIME= 10:56:40
+ Subscript range error.  Parameter DATA_RES_HALF is dimensioned as 1 x   
+ 1, but location 1 x 4 is being requested                                
+                                                                         
+
+ *** ERROR ***     SUPPRESSED MESSAGE    CP =      28.406   TIME= 10:56:40
+ No data exists for dimensioned parameter DATA_RES_HALF with subscripts  
+ 1 x 4.                                                                  
+
+ *** ERROR ***     SUPPRESSED MESSAGE    CP =      28.406   TIME= 10:56:40
+ Subscript range error.  Parameter DATA_RES_HALF is dimensioned as 1 x   
+ 1, but location 1 x 4 is being requested                                
+                                                                         
+
+ *** ERROR ***     SUPPRESSED MESSAGE    CP =      28.406   TIME= 10:56:40
+ No data exists for dimensioned parameter DATA_RES_HALF with subscripts  
+ 1 x 4.                                                                  
+
+ *** ERROR ***     SUPPRESSED MESSAGE    CP =      28.422   TIME= 10:56:40
+ The above error occurred processing field= DATA_RES_HALF(1,4)           
+  Line=                                                                  
+ *VWRITE,DATA_RES_HALF(1,1),DATA_RES_HALF(1,2),DATA_RES_HALF(1,3),DATA_R 
+ RES_HALF(1,4),DATA_RES_HALF(1,5),DATA_RES_HALF(1,6).                    
+
+ *** ERROR ***     SUPPRESSED MESSAGE    CP =      28.422   TIME= 10:56:40
+ Subscript range error.  Parameter DATA_RES_HALF is dimensioned as 1 x   
+ 1, but location 1 x 5 is being requested                                
+                                                                         
+
+ *** ERROR ***     SUPPRESSED MESSAGE    CP =      28.422   TIME= 10:56:40
+ No data exists for dimensioned parameter DATA_RES_HALF with subscripts  
+ 1 x 5.                                                                  
+
+ *** ERROR ***     SUPPRESSED MESSAGE    CP =      28.422   TIME= 10:56:40
+ Subscript range error.  Parameter DATA_RES_HALF is dimensioned as 1 x   
+ 1, but location 1 x 5 is being requested                                
+                                                                         
+
+ *** ERROR ***     SUPPRESSED MESSAGE    CP =      28.422   TIME= 10:56:40
+ No data exists for dimensioned parameter DATA_RES_HALF with subscripts  
+ 1 x 5.                                                                  
+
+ *** ERROR ***     SUPPRESSED MESSAGE    CP =      28.422   TIME= 10:56:40
+ The above error occurred processing field= DATA_RES_HALF(1,5)           
+  Line=                                                                  
+ *VWRITE,DATA_RES_HALF(1,1),DATA_RES_HALF(1,2),DATA_RES_HALF(1,3),DATA_R 
+ RES_HALF(1,4),DATA_RES_HALF(1,5),DATA_RES_HALF(1,6).                    
+
+ *** ERROR ***     SUPPRESSED MESSAGE    CP =      28.422   TIME= 10:56:40
+ Subscript range error.  Parameter DATA_RES_HALF is dimensioned as 1 x   
+ 1, but location 1 x 6 is being requested                                
+                                                                         
+
+ *** ERROR ***     SUPPRESSED MESSAGE    CP =      28.422   TIME= 10:56:40
+ No data exists for dimensioned parameter DATA_RES_HALF with subscripts  
+ 1 x 6.                                                                  
+
+ *** ERROR ***     SUPPRESSED MESSAGE    CP =      28.422   TIME= 10:56:40
+ Subscript range error.  Parameter DATA_RES_HALF is dimensioned as 1 x   
+ 1, but location 1 x 6 is being requested                                
+                                                                         
+
+ *** ERROR ***     SUPPRESSED MESSAGE    CP =      28.422   TIME= 10:56:40
+ No data exists for dimensioned parameter DATA_RES_HALF with subscripts  
+ 1 x 6.                                                                  
+
+ *** ERROR ***     SUPPRESSED MESSAGE    CP =      28.422   TIME= 10:56:40
+ The above error occurred processing field= DATA_RES_HALF(1,6)           
+  Line=                                                                  
+ *VWRITE,DATA_RES_HALF(1,1),DATA_RES_HALF(1,2),DATA_RES_HALF(1,3),DATA_R 
+ RES_HALF(1,4),DATA_RES_HALF(1,5),DATA_RES_HALF(1,6).                    
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =      28.422   TIME= 10:56:40
+ In the graphical user interface, the *VWRITE command can only be        
+ executed from an external file such as /INPUT or *USE.  The command is  
+ ignored.                                                                
+/COM,ANSYS RELEASE Release 19.2      BUILD 19.2      UP20180808       11:00:17
+
+ *** ERROR ***                           CP =       6.891   TIME= 11:00:28
+ Subscript 2 is out of range for parameter DATA_RES_HALF                 
+  Specified value is 2 Maximum value is 1.                               
+
+ *** ERROR ***                           CP =      11.625   TIME= 11:02:21
+ Subscript 2 is out of range for parameter DATA_RES_HALF                 
+  Specified value is 2 Maximum value is 1.                               
+
+ *** ERROR ***                           CP =      16.984   TIME= 11:05:04
+ Subscript 2 is out of range for parameter DATA_RES_HALF                 
+  Specified value is 2 Maximum value is 1.                               
+
+ *** ERROR ***                           CP =      21.797   TIME= 11:05:36
+ Subscript 2 is out of range for parameter DATA_RES_HALF                 
+  Specified value is 2 Maximum value is 1.                               
+
+ *** ERROR ***                           CP =      45.109   TIME= 12:24:25
+ The program is unable to open file append\ECT_SCSPEED_MSRMT             
+ (static).csv.  If the suggestions in the associated error messages      
+ immediately preceding and/or following this error message do not help   
+ resolve the file issue, please send the data leading to this operation  
+ to your technical support provider, along with the I/O error code of    
+ 29 and the system error code of 0, for help in determining the          
+ possible reasons as to why this file could not be opened.               
+
+ *** WARNING ***                         CP =      45.766   TIME= 12:25:30
+ Output file cannot be opened - file name= append\ECT_SCSPEED_MSRMT      
+ (static).csv                                                            
+  due to error number= 29                                                
+  Check file permissions, and also ensure that the file is not a         
+ directory.                                                              
+
+ *** WARNING ***                         CP =      50.469   TIME= 12:26:32
+ Error in format, not enough data format specifiers                      
+  %1.                                                                    
+
+ *** ERROR ***                           CP =      50.750   TIME= 12:26:48
+ The program is unable to open file append\ECT_SCSPEED_MSRMT             
+ (static).csv.  If the suggestions in the associated error messages      
+ immediately preceding and/or following this error message do not help   
+ resolve the file issue, please send the data leading to this operation  
+ to your technical support provider, along with the I/O error code of    
+ 29 and the system error code of 0, for help in determining the          
+ possible reasons as to why this file could not be opened.               
+
+ *** WARNING ***                         CP =      51.297   TIME= 12:26:59
+ Output file cannot be opened - file name= append\ECT_SCSPEED_MSRMT      
+ (static).csv                                                            
+  due to error number= 29                                                
+  Check file permissions, and also ensure that the file is not a         
+ directory.                                                              
+/COM,ANSYS RELEASE Release 19.2      BUILD 19.2      UP20180808       12:30:22
+/COM,ANSYS RELEASE Release 19.2      BUILD 19.2      UP20180808       12:39:42
+/COM,ANSYS RELEASE Release 19.2      BUILD 19.2      UP20180808       12:40:38
+/COM,ANSYS RELEASE Release 19.2      BUILD 19.2      UP20180808       12:51:59
+
+ *** WARNING ***                         CP =       6.984   TIME= 12:52:08
+ TYPE is not a recognized BEGIN command, abbreviation, or macro.  This   
+ command will be ignored.                                                
+
+ *** WARNING ***                         CP =       7.125   TIME= 12:52:08
+ MAT is not a recognized BEGIN command, abbreviation, or macro.  This    
+ command will be ignored.                                                
+
+ *** WARNING ***                         CP =       7.141   TIME= 12:52:09
+ EMODIF is not a recognized BEGIN command, abbreviation, or macro.       
+ This command will be ignored.                                           
+
+ *** WARNING ***                         CP =       7.172   TIME= 12:52:09
+ TYPE is not a recognized BEGIN command, abbreviation, or macro.  This   
+ command will be ignored.                                                
+
+ *** WARNING ***                         CP =       7.203   TIME= 12:52:09
+ MAT is not a recognized BEGIN command, abbreviation, or macro.  This    
+ command will be ignored.                                                
+
+ *** WARNING ***                         CP =      12.125   TIME= 13:00:47
+ TYPE is not a recognized BEGIN command, abbreviation, or macro.  This   
+ command will be ignored.                                                
+
+ *** WARNING ***                         CP =      12.328   TIME= 13:00:48
+ MAT is not a recognized BEGIN command, abbreviation, or macro.  This    
+ command will be ignored.                                                
+
+ *** WARNING ***                         CP =      12.344   TIME= 13:00:48
+ EMODIF is not a recognized BEGIN command, abbreviation, or macro.       
+ This command will be ignored.                                           
+
+ *** WARNING ***                         CP =      12.406   TIME= 13:00:48
+ TYPE is not a recognized BEGIN command, abbreviation, or macro.  This   
+ command will be ignored.                                                
+
+ *** WARNING ***                         CP =      12.406   TIME= 13:00:48
+ MAT is not a recognized BEGIN command, abbreviation, or macro.  This    
+ command will be ignored.                                                
+
+ *** WARNING ***                         CP =      17.281   TIME= 13:02:07
+ TYPE is not a recognized BEGIN command, abbreviation, or macro.  This   
+ command will be ignored.                                                
+
+ *** WARNING ***                         CP =      17.672   TIME= 13:02:07
+ MAT is not a recognized BEGIN command, abbreviation, or macro.  This    
+ command will be ignored.                                                
+
+ *** WARNING ***                         CP =      17.734   TIME= 13:02:07
+ EMODIF is not a recognized BEGIN command, abbreviation, or macro.       
+ This command will be ignored.                                           
+
+ *** WARNING ***                         CP =      17.781   TIME= 13:02:07
+ TYPE is not a recognized BEGIN command, abbreviation, or macro.  This   
+ command will be ignored.                                                
+
+ *** WARNING ***                         CP =      17.828   TIME= 13:02:07
+ MAT is not a recognized BEGIN command, abbreviation, or macro.  This    
+ command will be ignored.                                                

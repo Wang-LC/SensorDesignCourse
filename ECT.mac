@@ -1,0 +1,78 @@
+/clear
+/batch,list
+/prep7
+
+w=0.3 ! m
+h=0.3 ! m
+
+
+et,1,121                 ! 8-node 2-D electrostatic element
+mp,perx,1,1 ! Electric relative permittivities = 1
+et,2,121                 ! 8-node 2-D electrostatic element
+mp,perx,2,2 ! Electric relative permittivities = 2
+
+emunit,epzro,8.854e-6    ! Set free-space permittivity for μMKSV units
+
+! Build a 2-D square
+BLC4,0,0,w,h
+
+
+! Mesh air region by 3*3
+LESIZE,ALL, , ,3, ,1, , ,1, 
+MSHAPE,0,2D 
+MSHKEY,0
+!*  
+CM,_Y,AREA
+ASEL, , , ,       1
+CM,_Y1,AREA 
+CHKMSH,'AREA'   
+CMSEL,S,_Y  
+!*  
+AMESH,_Y1   
+!*  
+CMDELE,_Y   
+CMDELE,_Y1  
+CMDELE,_Y2  
+!*  
+
+! Assign node components to 4 conductors
+nsel,s,loc,y,0 ! _
+cm,cond1,node           
+nsel,s,loc,x,0 !|
+cm,cond2,node           
+nsel,s,loc,y,h ! -
+cm,cond3,node           
+nsel,s,loc,x,w !  |
+cm,cond4,node     
+allsel,all
+
+! Change Electric relative permittivities
+
+ESEL,s,,,1
+TYPE,2
+MAT,2
+EMODIF,all
+allsel,all
+
+
+finish
+/solu
+cmatrix,1,'cond',4,1     ! Compute capacitance matrix coefficients	
+finish
+
+ELTR_NUM=4
+*dim,DATA_RES_HALF,array,ELTR_NUM-1,ELTR_NUM
+*do,ii,1,ELTR_NUM-1 
+	*do,jj,ii+1,ELTR_NUM
+		/post1
+		DATA_RES_HALF(ii,jj)=CMATRIX(ii,jj,2)
+		fini
+	*enddo
+*enddo
+
+/com
+/OUT,'ECT_SCSPEED_MSRMT (static)','csv', ,append
+*VWRITE,DATA_RES_HALF(1,2),DATA_RES_HALF(1,3),DATA_RES_HALF(1,4),DATA_RES_HALF(2,3),DATA_RES_HALF(2,4),DATA_RES_HALF(3,4)
+%G, %G, %G, %G, %G, %G
+/OUTPUT,TERM
+fini

@@ -1,0 +1,55 @@
+/batch,list
+/prep7
+/title, Capacitance of two long cylinders above a ground plane
+
+a=100                    ! Cylinder inside radius (µm)
+d=400                    ! Outer radius of air region
+ro=800                   ! Outer radius of infinite elements
+
+
+et,1,121                 ! 8-node 2-D electrostatic element
+et,2,110,1,1             ! 8-node 2-D Infinite element
+emunit,epzro,8.854e-6    ! Set free-space permittivity for µMKSV units
+mp,perx,1,1
+
+
+cyl4,d/2,d/2,a,0         ! Create mode in first quadrant
+cyl4,0,0,ro,0,,90
+cyl4,0,0,2*ro,0,,90
+
+aovlap,all
+numcmp,area
+smrtsiz,4
+mshape,1                 ! Mesh air region
+amesh,3
+
+lsel,s,loc,x,1.5*ro
+lsel,a,loc,y,1.5*ro
+lesize,all,,,1
+type,2
+mshape,0
+mshkey,1
+amesh,2                  ! Mesh infinite region
+arsymm,x,all             ! Reflect model about y axis
+nummrg,node
+nummrg,kpoi
+
+csys,1
+
+nsel,s,loc,x,2*ro
+sf,all,inf               ! Set infinite flag in Infinite elements
+
+local,11,1,d/2,d/2
+nsel,s,loc,x,a
+cm,cond1,node            ! Assign node component to 1st conductor
+local,12,1,-d/2,d/2
+nsel,s,loc,x,a
+cm,cond2,node            ! Assign node component to 2nd conductor					
+csys,0
+nsel,s,loc,y,0
+cm,cond3,node            ! Assign node component to ground conductor
+allsel,all
+finish
+/solu
+cmatrix,1,'cond',3,0     ! Compute capacitance matrix coefficients	
+finish
