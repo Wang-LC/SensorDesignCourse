@@ -18,3 +18,4 @@ ECT_RES.csv
 *.mntr
 *.stat
 *.rdb
+*.csv
