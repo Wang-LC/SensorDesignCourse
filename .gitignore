@@ -14,3 +14,7 @@ file.db
 cmatrix.txt
 cmatrix.out
 ECT_RES.csv
+*.ldhi
+*.mntr
+*.stat
+*.rdb
