@@ -1,0 +1,169 @@
+fini
+/clear
+/PREP7
+/UNITS,SI
+SMRT,OFF
+!/TITLE, VM192, COOLING OF A BILLET BY RADIATION
+!/COM    THERMAL RADIATION HEAT TRANSFER, SIEGEL AND HOWELL, 2ND EDITION,
+!/COM    PG. 229, PROBLEM NO. 21.
+
+thknp=350e-6		!Thickness of melted layer = 350 um
+thkgls=2500e-6	 	!Thickness of powder substrate = 2500 um
+widthnp=10e-3
+divwdth=16
+
+
+
+ET,1,SOLID70            ! 3-D THERMAL SOLID ELEMENT
+ET,2,SURF152,,,,1,1     ! 3-D THERMAL SURFACE EFFECT ELEMENTS
+KEYOPT,2,9,1            ! RADIATION OPTION
+R,2,1,0.1712E-8         ! FORM FACTOR = 1, STEFAN-BOLTZMANN CONSTANT
+!Material 2 (Radiation heat sink) property
+MP,EMIS,2,1             ! BLACK BODY EMISSIVITY
+!Material 3 (Sintered powder) property
+MP,KXX,3,100
+MP,C,3,235
+MP,DENS,3,10490
+
+!Material 1 (Unsintered powder) property
+MP,KXX,1,400          ! ARBITRARY CONDUCTIVITY
+MP,C,1,235            
+MP,DENS,1,10490
+!Material 5 (powder = Unsintered powder) property
+MP,KXX,5,400
+MP,C,5,235
+MP,DENS,5,10490
+
+
+
+
+BLOCK,,widthnp,,thknp,,widthnp		!melted layer
+BLOCK,,widthnp,,-thknp-thkgls,,widthnp !powder layer
+VGLUE,all
+/PNUM,VOLU,1
+VPLOT
+
+TYPE,1
+REAL,1
+MAT,1
+LSEL,s,loc,y,0,thknp
+LSEL,r,loc,x,0,0
+LSEL,r,loc,z,0,0
+LESIZE,all,,,2
+
+LSEL,s,loc,x,0,widthnp
+LSEL,r,loc,y,0,0
+LSEL,r,loc,z,0,0
+LESIZE,all,,,divwdth
+
+LSEL,s,loc,z,0,widthnp
+LSEL,r,loc,x,0,0
+LSEL,r,loc,y,0,0
+LESIZE,all,,,divwdth
+
+VSEL,s,loc,y,0,thknp
+VMESH,all                 ! MESH WITH A SINGLE SOLID70 ELEMENT
+
+TYPE,1
+REAL,1
+MAT,5
+VSEL,s,loc,y,-thknp,-thknp-thkgls
+ESIZE,widthnp/divwdth
+VMESH,all
+allsel
+eplot
+
+ESEL,s,cent,x,widthnp/4,widthnp*3/4
+ESEL,r,cent,z,widthnp/4,widthnp*3/4
+ESEL,r,cent,y,0,thknp
+EMODIF,all,MAT,3
+EPLOT
+ESEL,all
+
+
+! 讓熱能可以散熱到這裏去
+TYPE,2
+REAL,2
+MAT,2
+N,100000,2.5e-3,-5e-3,2.5e-3             ! EXTRA "SPACE" NODE FOR RADIATION
+ESURF,100000               ! GENERATE SURF152 ELEMENTS
+
+/VIEW,1,1,2,3   
+/ANG,1 
+FINISH
+
+!設定表面(被加熱後)溫度與室溫
+/SOLU
+ANTYPE,TRANS            ! TRANSIENT ANALYSIS
+D,100000,TEMP,25          ! SPECIFY SURROUNDING ABSOLUTE TEMPERATURE
+! TUNIF,1000
+! NSEL,s,loc,y,0,thknp
+! IC,all,temp,700
+! nplot
+NSEL,s,loc,y,0,thknp
+! NSEL,r,loc,x,0,1e-3
+! NSEL,r,loc,z,0,1e-3
+nplot
+IC,all,temp,100			! Initial temperature on top surface
+NSEL,inve
+nplot
+IC,all,temp,25
+allsel
+eplot
+
+! ASEL,s,loc,x,0,0
+! APLOT
+! DA,all,symm
+
+! ASEL,s,loc,z,0,0
+! APLOT
+! DA,all,symm
+
+! 設定瞬態分析的時間步進
+time_stp=0.00001
+time_end=0.0005
+AUTOTS,ON            ! automatic time stepping   
+KBC,1                   ! STEP SURROUNDING TEMPERATURE IN FIRST TIME STEP
+DELTIM,time_stp,time_stp,time_stp! INITIAL (MINIMUM) INTEGRATION TIME STEP
+OUTRES,,ALL
+OUTPR,NSOL,LAST
+TIME,time_end	                ! TRANSIENT TIME SPAN
+! CNVTOL,HEAT,,,,1.0
+TINTP,,,,0.5,,0.2
+/OUT,SCRATCH
+SOLVE
+FINISH
+
+
+! /post1
+! /SHOW,win32c
+! /CONT,1,128,AUTO
+! PLNS,TEMP,  
+! ANTIME,100,0.5, ,1,0,0,time_end  
+! FINISH
+
+/post26
+NUMVAR,divwdth+2
+
+NSEL,s,loc,y,thknp,thknp
+NSEL,r,loc,z,widthnp/2
+
+*VGET,parr_nodes_num,node,,nlist
+
+
+*DIM,node_temp,TABLE,time_end/time_stp,divwdth+1
+*DO,i,1,divwdth+1
+	NSOL,i+1,parr_nodes_num(i),temp,,TMP,
+	VGET,node_temp(1,i-1),i
+*ENDDO
+VGET,node_temp(1,divwdth+1),divwdth+2
+
+/OUTPUT,'TG_data','csv'
+*VWRITE,'TIME','TEMP1','TEMP2','TEMP3','TEMP4','TEMP5','TEMP6','TEMP7','TEMP8','TEMP9','TEMP10','TEMP11','TEMP12','TEMP13','TEMP14','TEMP15','TEMP16','TEMP17'  
+%C, %C, %C, %C, %C, %C, %C, %C, %C, %C, %C, %C, %C, %C, %C, %C, %C, %C
+*VWRITE,node_temp(1,0),node_temp(1,1),node_temp(1,2),node_temp(1,3),node_temp(1,4),node_temp(1,5),node_temp(1,6),node_temp(1,7),node_temp(1,8),node_temp(1,9),node_temp(1,10),node_temp(1,11),node_temp(1,12),node_temp(1,13),node_temp(1,14),node_temp(1,15),node_temp(1,16),node_temp(1,17)
+%G, %G, %G, %G, %G, %G, %G, %G, %G, %G, %G, %G, %G, %G, %G, %G, %G, %G
+/OUTPUT,TERM
+FINISH
+
+
