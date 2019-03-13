@@ -4,8 +4,8 @@ fini
 /UNITS,SI
 SMRT,OFF
 !/TITLE, VM192, COOLING OF A BILLET BY RADIATION
-/COM    THERMAL RADIATION HEAT TRANSFER, SIEGEL AND HOWELL, 2ND EDITION,
-/COM    PG. 229, PROBLEM NO. 21.
+!/COM    THERMAL RADIATION HEAT TRANSFER, SIEGEL AND HOWELL, 2ND EDITION,
+!/COM    PG. 229, PROBLEM NO. 21.
 
 thknp=100e-6		!Thickness of NP layer = 100 um
 thkplm=250e-6		!Thickness of Polymer layer = 250 um
@@ -45,7 +45,7 @@ BLOCK,,widthnp,,-thkplm,,widthnp		!Polymer layer
 BLOCK,,widthnp,-thkplm,-thkplm-thkgls,,widthnp !Glass layer
 VGLUE,all
 /PNUM,VOLU,1
-VPLOT
+VPLOT  ! show volume nember
 
 TYPE,1
 REAL,1
