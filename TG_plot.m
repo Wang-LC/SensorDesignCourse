@@ -2,13 +2,12 @@ clear
 close
 clc
 
-% Read in csv file
+%% Read in csv file
 data = csvread('TG_data.csv',1,0);
-temp = zeros(17, 17);
 
-% Plot certain frame
+%% Plot certain frame
 frame = 1;
-time = data(1, 1);
+time = data(frame, 1);
 for line = 1:17
     row = (50*(line-1))+frame; % 6, 56, 106, ..., 806 
     temp(line,:) = data(row, 2:end);
@@ -18,7 +17,7 @@ pcolor(temp); axis square
 title( ['Frame: ', num2str(frame), '. At ', num2str(time), ' s'] )
 colorbar
 
-% Average out all frames
+%% Average out all frames
 temp_all = zeros(17, 17);
 time_all = data(50, 1);
 for frame = 1:50
