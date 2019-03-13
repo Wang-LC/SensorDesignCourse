@@ -3,11 +3,8 @@ fini
 /PREP7
 /UNITS,SI
 SMRT,OFF
-!/TITLE, VM192, COOLING OF A BILLET BY RADIATION
-!/COM    THERMAL RADIATION HEAT TRANSFER, SIEGEL AND HOWELL, 2ND EDITION,
-!/COM    PG. 229, PROBLEM NO. 21.
 
-thknp=350e-6		!Thickness of melted layer = 350 um
+thknp=100e-6		!Thickness of melted layer = 100 um
 thkgls=2500e-6	 	!Thickness of powder substrate = 2500 um
 widthnp=10e-3
 divwdth=16
@@ -21,28 +18,25 @@ R,2,1,0.1712E-8         ! FORM FACTOR = 1, STEFAN-BOLTZMANN CONSTANT
 !Material 2 (Radiation heat sink) property
 MP,EMIS,2,1             ! BLACK BODY EMISSIVITY
 !Material 3 (Sintered powder) property
-MP,KXX,3,100
-MP,C,3,235
-MP,DENS,3,10490
+MP,KXX,3,1550 ! Thermal conductivity
+MP,C,3,960 ! Specific heat capacity
+MP,DENS,3,2810 ! Density
 
 !Material 1 (Unsintered powder) property
-MP,KXX,1,400          ! ARBITRARY CONDUCTIVITY
-MP,C,1,235            
-MP,DENS,1,10490
-!Material 5 (powder = Unsintered powder) property
-MP,KXX,5,400
-MP,C,5,235
-MP,DENS,5,10490
+MP,KXX,1,1300
+MP,C,1,960          
+MP,DENS,1,2810
 
 
 
 
 BLOCK,,widthnp,,thknp,,widthnp		!melted layer
-BLOCK,,widthnp,,-thknp-thkgls,,widthnp !powder layer
+BLOCK,,widthnp,,-thkgls,,widthnp !powder layer
 VGLUE,all
 /PNUM,VOLU,1
 VPLOT
 
+! Mseh melted layer
 TYPE,1
 REAL,1
 MAT,1
@@ -64,24 +58,35 @@ LESIZE,all,,,divwdth
 VSEL,s,loc,y,0,thknp
 VMESH,all                 ! MESH WITH A SINGLE SOLID70 ELEMENT
 
-TYPE,1
-REAL,1
-MAT,5
-VSEL,s,loc,y,-thknp,-thknp-thkgls
+
+! Mesh powder layer
+VSEL,s,loc,y,0,-thkgls
 ESIZE,widthnp/divwdth
 VMESH,all
 allsel
-eplot
 
-ESEL,s,cent,x,widthnp/4,widthnp*3/4
-ESEL,r,cent,z,widthnp/4,widthnp*3/4
-ESEL,r,cent,y,0,thknp
+
+! Set the area of melted part
+
+!Circle part
+!Change the coordinate system and position
+!ESEL,s,cent,y,0,thknp
+!clocal,11,cylin,widthnp/2,0,widthnp/2,0,90
+!csys,11
+!ESEL,r,cent,x,0,widthnp*1/3 ! can be 1/6, 1/5, 1/4, 1/3, 1/2
+!csys,0
+!eplot
+
+!Square part
+ESEL,s,cent,y,0,thknp
+ESEL,r,cent,x,widthnp*1/4,widthnp*3/4
+ESEL,r,cent,z,widthnp*1/4,widthnp*3/4
+!eplot
+
+!Change the material of selected element
 EMODIF,all,MAT,3
-EPLOT
 ESEL,all
 
-
-! 讓熱能可以散熱到這裏去
 TYPE,2
 REAL,2
 MAT,2
@@ -92,34 +97,43 @@ ESURF,100000               ! GENERATE SURF152 ELEMENTS
 /ANG,1 
 FINISH
 
-!設定表面(被加熱後)溫度與室溫
+
 /SOLU
 ANTYPE,TRANS            ! TRANSIENT ANALYSIS
-D,100000,TEMP,25          ! SPECIFY SURROUNDING ABSOLUTE TEMPERATURE
-! TUNIF,1000
-! NSEL,s,loc,y,0,thknp
-! IC,all,temp,700
-! nplot
+
+! SPECIFY SURROUNDING ABSOLUTE TEMPERATURE
+D,100000,TEMP,25
+
+! Initial heated temperature on top surface
 NSEL,s,loc,y,0,thknp
-! NSEL,r,loc,x,0,1e-3
-! NSEL,r,loc,z,0,1e-3
 nplot
-IC,all,temp,100			! Initial temperature on top surface
+IC,all,temp,100			
+
+! Initial room temperature on bottom
 NSEL,inve
 nplot
 IC,all,temp,25
 allsel
-eplot
 
-! ASEL,s,loc,x,0,0
-! APLOT
-! DA,all,symm
 
-! ASEL,s,loc,z,0,0
-! APLOT
-! DA,all,symm
+! Set symmetry constraints on four sides
+ASEL,s,loc,x,0,0
+APLOT
+DA,all,symm
 
-! 設定瞬態分析的時間步進
+ASEL,s,loc,z,0,0
+APLOT
+DA,all,symm
+
+ASEL,s,loc,x,widthnp,widthnp
+APLOT
+DA,all,symm
+
+ASEL,s,loc,z,widthnp,widthnp
+APLOT
+DA,all,symm
+
+! Set the time range and time step for transient analysis
 time_stp=0.00001
 time_end=0.0005
 AUTOTS,ON            ! automatic time stepping   
@@ -128,42 +142,48 @@ DELTIM,time_stp,time_stp,time_stp! INITIAL (MINIMUM) INTEGRATION TIME STEP
 OUTRES,,ALL
 OUTPR,NSOL,LAST
 TIME,time_end	                ! TRANSIENT TIME SPAN
-! CNVTOL,HEAT,,,,1.0
 TINTP,,,,0.5,,0.2
 /OUT,SCRATCH
 SOLVE
 FINISH
 
-
-! /post1
-! /SHOW,win32c
-! /CONT,1,128,AUTO
-! PLNS,TEMP,  
-! ANTIME,100,0.5, ,1,0,0,time_end  
-! FINISH
-
 /post26
 NUMVAR,divwdth+2
 
-NSEL,s,loc,y,thknp,thknp
-NSEL,r,loc,z,widthnp/2
-
-*VGET,parr_nodes_num,node,,nlist
-
-
-*DIM,node_temp,TABLE,time_end/time_stp,divwdth+1
-*DO,i,1,divwdth+1
-	NSOL,i+1,parr_nodes_num(i),temp,,TMP,
-	VGET,node_temp(1,i-1),i
-*ENDDO
-VGET,node_temp(1,divwdth+1),divwdth+2
-
+! Open the file
+/com
 /OUTPUT,'TG_data','csv'
 *VWRITE,'TIME','TEMP1','TEMP2','TEMP3','TEMP4','TEMP5','TEMP6','TEMP7','TEMP8','TEMP9','TEMP10','TEMP11','TEMP12','TEMP13','TEMP14','TEMP15','TEMP16','TEMP17'  
 %C, %C, %C, %C, %C, %C, %C, %C, %C, %C, %C, %C, %C, %C, %C, %C, %C, %C
-*VWRITE,node_temp(1,0),node_temp(1,1),node_temp(1,2),node_temp(1,3),node_temp(1,4),node_temp(1,5),node_temp(1,6),node_temp(1,7),node_temp(1,8),node_temp(1,9),node_temp(1,10),node_temp(1,11),node_temp(1,12),node_temp(1,13),node_temp(1,14),node_temp(1,15),node_temp(1,16),node_temp(1,17)
-%G, %G, %G, %G, %G, %G, %G, %G, %G, %G, %G, %G, %G, %G, %G, %G, %G, %G
 /OUTPUT,TERM
-FINISH
+	
+! Get temp data from node line
+*DIM,node_temp,TABLE,time_end/time_stp,divwdth+1
+*DO,ii,0,divwdth
+	/post26
+	NSEL,s,loc,y,thknp
+	NSEL,r,loc,z,widthnp*ii/divwdth
+	nplot
+	
+	*VGET,parr_nodes_num,node,,nlist
+		
+	
+	*DO,i,1,divwdth+1
+		NSOL,i+1,parr_nodes_num(i),temp,,TMP,
+		VGET,node_temp(1,i-1),i
+	*ENDDO
+	VGET,node_temp(1,divwdth+1),divwdth+2
+	
+	/com
+	/OUTPUT,'TG_data','csv',,APPEND
+	*VWRITE,node_temp(1,0),node_temp(1,1),node_temp(1,2),node_temp(1,3),node_temp(1,4),node_temp(1,5),node_temp(1,6),node_temp(1,7),node_temp(1,8),node_temp(1,9),node_temp(1,10),node_temp(1,11),node_temp(1,12),node_temp(1,13),node_temp(1,14),node_temp(1,15),node_temp(1,16),node_temp(1,17)
+	%G, %G, %G, %G, %G, %G, %G, %G, %G, %G, %G, %G, %G, %G, %G, %G, %G, %G
+	/OUTPUT,TERM
+	FINISH
+*ENDDO
 
+! Get ANTIME result
+!/post1
+!PLNS,TEMP,  
+!ANTIME,time_end/time_stp,0.5, ,1,2,0,time_end
 
