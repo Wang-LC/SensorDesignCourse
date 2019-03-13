@@ -1,7 +1,3 @@
-sdfasdfadfas
-
-
-
 fini
 /clear
 /PREP7
@@ -22,14 +18,19 @@ R,2,1,0.1712E-8         ! FORM FACTOR = 1, STEFAN-BOLTZMANN CONSTANT
 !Material 2 (Radiation heat sink) property
 MP,EMIS,2,1             ! BLACK BODY EMISSIVITY
 !Material 3 (Sintered powder) property
-MP,KXX,3,1550 ! Thermal conductivity
+MP,KXX,3,1300 ! Thermal conductivity
 MP,C,3,960 ! Specific heat capacity
 MP,DENS,3,2810 ! Density
 
 !Material 1 (Unsintered powder) property
-MP,KXX,1,1300
+MP,KXX,1,1550
 MP,C,1,960          
 MP,DENS,1,2810
+
+!TEST: different dens Material 4 (Sintered powder2) property
+!MP,KXX,4,1300 ! Thermal conductivity
+!MP,C,4,960 ! Specific heat capacity
+!MP,DENS,4,2210 ! Density
 
 
 
@@ -74,16 +75,14 @@ allsel
 
 !Circle part
 !Change the coordinate system and position
-!ESEL,s,cent,y,0,thknp
 !clocal,11,cylin,widthnp/2,0,widthnp/2,0,90
 !csys,11
-!ESEL,r,cent,x,0,widthnp*1/3 ! can be 1/6, 1/5, 1/4, 1/3, 1/2
+!ESEL,s,cent,x,0,widthnp*1/3 ! can be 1/6, 1/5, 1/4, 1/3
 !csys,0
 !eplot
 
 !Square part
-ESEL,s,cent,y,0,thknp
-ESEL,r,cent,x,widthnp*1/4,widthnp*3/4
+ESEL,s,cent,x,widthnp*1/4,widthnp*3/4
 ESEL,r,cent,z,widthnp*1/4,widthnp*3/4
 !eplot
 
@@ -91,10 +90,19 @@ ESEL,r,cent,z,widthnp*1/4,widthnp*3/4
 EMODIF,all,MAT,3
 ESEL,all
 
+!TEST: different dens
+!csys,11
+!ESEL,s,cent,x,0,widthnp*1/6 ! can be 1/6, 1/5, 1/4, 1/3
+!csys,0
+!EMODIF,all,MAT,4
+!ESEL,all
+
+
+!Add EXTRA "SPACE" NODE FOR RADIATION
 TYPE,2
 REAL,2
 MAT,2
-N,100000,2.5e-3,-5e-3,2.5e-3             ! EXTRA "SPACE" NODE FOR RADIATION
+N,100000,2.5e-3,-5e-3,2.5e-3             
 ESURF,100000               ! GENERATE SURF152 ELEMENTS
 
 /VIEW,1,1,2,3   
@@ -122,24 +130,16 @@ allsel
 
 ! Set symmetry constraints on four sides
 ASEL,s,loc,x,0,0
+ASEL,a,loc,z,0,0
+ASEL,a,loc,x,widthnp,widthnp
+ASEL,a,loc,z,widthnp,widthnp
 APLOT
 DA,all,symm
 
-ASEL,s,loc,z,0,0
-APLOT
-DA,all,symm
-
-ASEL,s,loc,x,widthnp,widthnp
-APLOT
-DA,all,symm
-
-ASEL,s,loc,z,widthnp,widthnp
-APLOT
-DA,all,symm
 
 ! Set the time range and time step for transient analysis
-time_stp=0.00001
-time_end=0.0005
+time_stp=0.0002  ! 0.00001
+time_end=0.01 ! 0.0005
 AUTOTS,ON            ! automatic time stepping   
 KBC,1                   ! STEP SURROUNDING TEMPERATURE IN FIRST TIME STEP
 DELTIM,time_stp,time_stp,time_stp! INITIAL (MINIMUM) INTEGRATION TIME STEP
@@ -180,7 +180,7 @@ NUMVAR,divwdth+2
 	
 	/com
 	/OUTPUT,'TG_data','csv',,APPEND
-	*VWRITE,node_temp(1,0),node_temp(1,1),node_temp(1,2),node_temp(1,3),node_temp(1,4),node_temp(1,5),node_temp(1,6),node_temp(1,7),node_temp(1,8),node_temp(1,9),node_temp(1,10),node_temp(1,11),node_temp(1,12),node_temp(1,13),node_temp(1,14),node_temp(1,15),node_temp(1,16),node_temp(1,17)
+	*VWRITE,node_temp(1,0),node_temp(1,2),node_temp(1,3),node_temp(1,4),node_temp(1,5),node_temp(1,6),node_temp(1,7),node_temp(1,8),node_temp(1,9),node_temp(1,10),node_temp(1,11),node_temp(1,12),node_temp(1,13),node_temp(1,14),node_temp(1,15),node_temp(1,16),node_temp(1,17),node_temp(1,1)
 	%G, %G, %G, %G, %G, %G, %G, %G, %G, %G, %G, %G, %G, %G, %G, %G, %G, %G
 	/OUTPUT,TERM
 	FINISH
